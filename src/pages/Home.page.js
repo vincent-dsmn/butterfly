@@ -38,7 +38,7 @@ export default function Home() {
     const diffTime = Math.abs(currentDate - date);
     const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
     if (diffHours < 24) {
-      return `Hello Lisa! It's good to know that you have found Butterflies today.`;
+      return `Hello Lisa! It's good to know that you have found Butterflies this day.`;
     }
     
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
