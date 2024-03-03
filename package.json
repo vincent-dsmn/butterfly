@@ -17,6 +17,7 @@
     "realm-web": "^1.5.1",
     "web-vitals": "^2.1.4"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "predeploy" : "npm run build",
@@ -45,5 +46,7 @@
   },
   "devDependencies": {
     "gh-pages": "^6.1.1"
-  }
+  },
+
+  "homepage": "http://vincent-dsmn.github.io/butterfly"
 }
