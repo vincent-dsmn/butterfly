@@ -6,8 +6,9 @@ import PrivateRoute from "./pages/PrivateRoute.page";
 import Signup from "./pages/Signup.page";
  
 function App() {
+  const basename = document.querySelector('base')?.getAttribute('href') ?? '/'   
  return (
-   <BrowserRouter>
+   <BrowserRouter basename={basename}>
      {/* We are wrapping our whole app with UserProvider so that */}
      {/* our user is accessible through out the app from any page*/}
      <UserProvider>
