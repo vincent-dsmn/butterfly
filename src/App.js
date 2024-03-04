@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/user.context";
 import Home from "./pages/Home.page";
 import Login from "./pages/Login.page";
@@ -7,7 +8,7 @@ import Signup from "./pages/Signup.page";
  
 function App() {
  return (
-   <BrowserRouter>
+   <HashRouter>
      {/* We are wrapping our whole app with UserProvider so that */}
      {/* our user is accessible through out the app from any page*/}
      <UserProvider>
@@ -21,7 +22,7 @@ function App() {
          </Route>
        </Routes>
      </UserProvider>
-   </BrowserRouter>
+   </HashRouter>
  );
 }
  
