@@ -39,7 +39,7 @@ const Signup = () => {
    }
  };
  
- return <form style={{ display: "flex", flexDirection: "column", maxWidth: "300px", margin: "auto" }}>
+ return <form style={{ display: "flex", flexDirection: "column", maxWidth: "300px", margin: "auto",backgroundColor:"f8f9fa" }}>
    <h1>Signup</h1>
    <TextField
      label="Email"
