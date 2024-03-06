@@ -1,0 +1,47 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.round-button-container {
+    width: 60%;
+    position: relative;
+  }
+  
+  .round-button {
+    border-radius: 50%;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background-color: #007bff;
+    color: black;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    position: relative; /* Ajout de position relative */
+    transition: transform 1s ease;
+  }
+  
+  .button-text {
+    position: absolute; /* Positionnement absolu pour centrer le texte */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  
+  
+  .round-button:active {
+    background-color:blueviolet; /* Modifier selon la couleur souhaitée au survol */
+  }
+  
+ 
+  

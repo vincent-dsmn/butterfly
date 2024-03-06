@@ -1,6 +1,7 @@
-import { Button } from '@mui/material';
 import { useContext, useState } from 'react';
 import { UserContext } from '../contexts/user.context';
+import '../realm/Home.css';
+import React from 'react';
 
 export default function Home() {
   const { logOutUser } = useContext(UserContext);
@@ -24,25 +25,32 @@ export default function Home() {
     }
   };
 
-  // function that set the local storage date to the current date
+  const [rotation, setRotation] = useState(0);
+
   const setDateLocalStorage = () => {
     const currentDate = new Date();
-    setDate(currentDate); // Update state
+    setDate(currentDate); // Mettre à jour l'état date
     localStorage.setItem('date', currentDate);
+  
+    // Mise à jour de la rotation en utilisant la fonction de mise à jour de l'état
+    setRotation(prevRotation => prevRotation + 360 * 5);
+  
+    
   };
+  
 
   // function that count the number of day between the local storage date and the current date
   const countDays = () => {
     const currentDate = new Date();
 
-    const diffTime = Math.abs(currentDate - date);
-    const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
-    if (diffHours < 24) {
-      return `Hello Lisa! It's good to know that you have found Butterflies this day.`;
+    const diffTime = currentDate - date;
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    if (Math.abs(diffHours) < 24) {
+      return `${diffHours} hours since you found Butterflies!`;
     }
     
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return `Welcome back Lisa! It's been ${diffDays} days since you found Butterflies.`;
+    return `${diffDays} days since you found Butterflies!`;
   };
 
   const setDateToFuture = () => {
@@ -54,14 +62,17 @@ export default function Home() {
   };
 
   return (
-    <>
-      <h1>{countDays()}</h1>
-      {/* <h2>{date ? date.toString() : 'No date set'}</h2> */}
-
-      <Button variant="contained" onClick={setDateLocalStorage}>
-        Update Date
-      </Button>
-      
-    </>
+    <div className='home'>
+      <div className="round-button-container">
+        <button className="round-button" onClick={setDateLocalStorage} style={{ transform: `rotateY(${rotation}deg)` }}>
+          <span className="button-text">{countDays()}</span>
+        </button>
+      </div>
+      {/* <div className="round-button-container">
+        <button className="round-button" onClick={setDateToFuture}>
+          <span className="button-text">Set Date to Future</span>
+        </button>
+      </div> */}
+    </div>
   );
 }
