@@ -3,7 +3,9 @@ import { UserContext } from '../contexts/user.context';
 import '../realm/Home.css';
 import React from 'react';
 
+
 export default function Home() {
+
   const { logOutUser } = useContext(UserContext);
 
   // useState hook to manage the date state
@@ -44,14 +46,21 @@ export default function Home() {
     const currentDate = new Date();
 
     const diffTime = currentDate - date;
-    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-    if (Math.abs(diffHours) < 24) {
+
+    var diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    if (diffHours < 24) {
       return `${diffHours} hours since you found Butterflies!`;
     }
     
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return `${diffDays} days since you found Butterflies!`;
+    const diffDays = Math.floor(diffHours / 24);
+    diffHours = diffHours - (diffDays * 24);
+    if (diffHours === 0) {
+      return `${diffDays} day(s) since you found Butterflies!`;
+    }
+    
+    return `${diffDays} day(s) and ${diffHours} hour(s) since you found Butterflies!`;
   };
+
 
   const setDateToFuture = () => {
     const currentDate = new Date();
@@ -68,11 +77,11 @@ export default function Home() {
           <span className="button-text">{countDays()}</span>
         </button>
       </div>
-      {/* <div className="round-button-container">
+      {/*<div className="round-button-container"> 
         <button className="round-button" onClick={setDateToFuture}>
-          <span className="button-text">Set Date to Future</span>
+          <span className="button-text">SET TO FUTURE</span>
         </button>
-      </div> */}
+      </div>*/}
     </div>
   );
 }
