@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/butterfly/static/css/main.dd53225f.css",
-    "main.js": "/butterfly/static/js/main.fe5700a5.js",
+    "main.js": "/butterfly/static/js/main.eb3a3f6d.js",
     "static/js/453.f96d22e8.chunk.js": "/butterfly/static/js/453.f96d22e8.chunk.js",
     "index.html": "/butterfly/index.html",
     "main.dd53225f.css.map": "/butterfly/static/css/main.dd53225f.css.map",
-    "main.fe5700a5.js.map": "/butterfly/static/js/main.fe5700a5.js.map",
+    "main.eb3a3f6d.js.map": "/butterfly/static/js/main.eb3a3f6d.js.map",
     "453.f96d22e8.chunk.js.map": "/butterfly/static/js/453.f96d22e8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dd53225f.css",
-    "static/js/main.fe5700a5.js"
+    "static/js/main.eb3a3f6d.js"
   ]
 }
