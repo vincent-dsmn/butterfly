@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../contexts/user.context';
 import '../realm/Home.css';
 import React from 'react';
@@ -15,52 +15,51 @@ export default function Home() {
     return storedDate ? new Date(storedDate) : null;
   });
 
-  // This function is called when the user clicks the "Logout" button.
-  const logOut = async () => {
-    try {
-      const loggedOut = await logOutUser();
-      if (loggedOut) {
-        window.location.reload(true);
+  const [rotation, setRotation] = useState(0);
+
+  // Send date to Service Worker for background notifications
+  const sendToServiceWorker = (dateToSend) => {
+    if (navigator.serviceWorker?.controller) {
+      const messagePromise = navigator.serviceWorker.controller.postMessage({
+        type: 'SET_DATE',
+        date: dateToSend.toISOString()
+      });
+      
+      // Only add catch if postMessage returns a Promise
+      if (messagePromise?.catch) {
+        messagePromise.catch(() => {});
       }
-    } catch (error) {
-      alert(error);
     }
   };
 
-  const [rotation, setRotation] = useState(0);
-
   const setDateLocalStorage = () => {
     const currentDate = new Date();
-    setDate(currentDate); // Mettre à jour l'état date
+    setDate(currentDate);
     localStorage.setItem('date', currentDate);
-  
-    // Mise à jour de la rotation en utilisant la fonction de mise à jour de l'état
     setRotation(prevRotation => prevRotation + 360 * 5);
-  
-    
+    sendToServiceWorker(currentDate);
   };
-  
 
-  // function that count the number of day between the local storage date and the current date
+  // Function that counts the number of days between the stored date and current date
   const countDays = () => {
+    if (!date) return "Click to find Butterflies!";
+    
     const currentDate = new Date();
-
     const diffTime = currentDate - date;
 
-    var diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     if (diffHours < 24) {
       return `${diffHours} hours since you found Butterflies!`;
     }
     
     const diffDays = Math.floor(diffHours / 24);
-    diffHours = diffHours - (diffDays * 24);
-    if (diffHours === 0) {
+    const remainingHours = diffHours - (diffDays * 24);
+    if (remainingHours === 0) {
       return `${diffDays} day(s) since you found Butterflies!`;
     }
     
-    return `${diffDays} day(s) and ${diffHours} hour(s) since you found Butterflies!`;
+    return `${diffDays} day(s) and ${remainingHours} hour(s) since you found Butterflies!`;
   };
-
 
   const setDateToFuture = () => {
     const currentDate = new Date();
@@ -68,6 +67,7 @@ export default function Home() {
     futureDate.setDate(futureDate.getDate() + 10);
     setDate(futureDate);
     localStorage.setItem('date', futureDate);
+    sendToServiceWorker(futureDate);
   };
 
   return (
@@ -77,11 +77,6 @@ export default function Home() {
           <span className="button-text">{countDays()}</span>
         </button>
       </div>
-      {/*<div className="round-button-container"> 
-        <button className="round-button" onClick={setDateToFuture}>
-          <span className="button-text">SET TO FUTURE</span>
-        </button>
-      </div>*/}
     </div>
   );
 }
